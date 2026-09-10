@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Technology — Client, Server &amp; the Web in Between</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#top">Skip to content</a>
+
+<header class="route-bar" id="top">
+  <div class="route-bar__inner">
+    <span class="route-bar__mark">WEB/TECH</span>
+    <nav class="route-nav" aria-label="Section navigation">
+      <a href="#client-server"><span class="tag">C/S</span><span class="label">Client&nbsp;/&nbsp;Server</span></a>
+      <a href="#components"><span class="tag">TIER</span><span class="label">Components</span></a>
+      <a href="#content-types"><span class="tag">MIME</span><span class="label">Web&nbsp;Content</span></a>
+      <a href="#http"><span class="tag">HTTP</span><span class="label">HTTP&nbsp;Request</span></a>
+      <a href="#dynamic"><span class="tag">DOM</span><span class="label">Dynamic&nbsp;Pages</span></a>
+      <a href="#appservers"><span class="tag">APP</span><span class="label">App&nbsp;Servers</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero__text">
+      <h1>Every page you load is<br>a conversation.</h1>
+      <p class="hero__sub">A client asks, a server answers, and the reply is assembled from layers of code you never see. This page traces that exchange — from the two machines talking, to the request that starts it, to the servers that keep the answer dynamic.</p>
+    </div>
+    <figure class="hero__diagram" aria-hidden="true">
+      <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a client sending an HTTP request to a server and receiving a response">
+        <line x1="120" y1="110" x2="440" y2="110" class="diagram-rule" stroke-dasharray="2 6"/>
+        <rect x="30" y="70" width="110" height="80" rx="2" class="diagram-box"/>
+        <text x="85" y="115" class="diagram-label" text-anchor="middle">CLIENT</text>
+        <text x="85" y="133" class="diagram-sub" text-anchor="middle">browser</text>
+        <rect x="420" y="70" width="110" height="80" rx="2" class="diagram-box diagram-box--server"/>
+        <text x="475" y="115" class="diagram-label" text-anchor="middle">SERVER</text>
+        <text x="475" y="133" class="diagram-sub" text-anchor="middle">origin</text>
+        <g class="packet-request">
+          <rect x="0" y="0" width="64" height="20" rx="10" class="packet packet--req"/>
+          <text x="32" y="14" class="packet-text" text-anchor="middle">GET /</text>
+        </g>
+        <g class="packet-response">
+          <rect x="0" y="0" width="88" height="20" rx="10" class="packet packet--res"/>
+          <text x="44" y="14" class="packet-text" text-anchor="middle">200 OK</text>
+        </g>
+      </svg>
+    </figure>
+  </section>
+
+  <section class="panel" id="client-server">
+    <header class="panel__head">
+      <span class="tag tag--section">C/S</span>
+      <h2>Client / Server</h2>
+    </header>
+    <div class="split">
+      <div class="split__col">
+        <h3>Client</h3>
+        <p>A client is any program or device that initiates a request for a resource or service over a network, rather than providing one itself. A web browser is the most common example: it asks a server for a page and then displays whatever comes back.</p>
+        <p>Clients are typically lightweight and user-facing. They don't need to know how the resource was produced, only how to ask for it and how to render the reply.</p>
+      </div>
+      <div class="split__col">
+        <h3>Server</h3>
+        <p>A server is a program or device that listens continuously for incoming requests and responds by supplying the requested resource or performing the requested action. One server can hold open connections with many clients at once.</p>
+        <p>The relationship is defined by roles, not hardware — the same machine could act as a client to one service while serving as a server to another.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="components">
+    <header class="panel__head">
+      <span class="tag tag--section">TIER</span>
+      <h2>Components of a Web Application</h2>
+    </header>
+    <p class="panel__intro">A web application is rarely one block of code. It's usually split into layers, each responsible for a single concern, so that changing how data is stored doesn't mean rewriting how it's displayed.</p>
+    <div class="stack">
+      <div class="stack__row">
+        <span class="stack__tag">01</span>
+        <div>
+          <h3>View Layer</h3>
+          <p>The presentation layer — what the user actually sees and interacts with. It renders HTML, CSS and on-screen elements, and passes user actions (clicks, form input) inward to the layer below.</p>
+        </div>
+      </div>
+      <div class="stack__row">
+        <span class="stack__tag">02</span>
+        <div>
+          <h3>Business Layer</h3>
+          <p>The logic layer — it applies the application's rules, makes decisions, validates input, and coordinates the exchange of information between the view and the data below it. This is where "what should happen" gets decided.</p>
+        </div>
+      </div>
+      <div class="stack__row">
+        <span class="stack__tag">03</span>
+        <div>
+          <h3>Data Access Layer</h3>
+          <p>The storage layer — it handles reading from and writing to a database or file store, and hands clean, structured data back up to the business layer on request.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="content-types">
+    <header class="panel__head">
+      <span class="tag tag--section">MIME</span>
+      <h2>Types of Web Content</h2>
+    </header>
+    <p class="panel__intro">A single page can deliver several kinds of media at once, each requiring different handling by the browser.</p>
+    <div class="chip-grid">
+      <div class="chip">
+        <h3>Text</h3>
+        <p>The written content of a page — headings, paragraphs, labels — marked up with HTML so the browser knows how to structure and style it.</p>
+      </div>
+      <div class="chip">
+        <h3>Images</h3>
+        <p>Static visual content such as photographs, illustrations and icons, typically in formats like JPEG, PNG or SVG.</p>
+      </div>
+      <div class="chip">
+        <h3>Audio</h3>
+        <p>Sound content — music, narration, effects — embedded and played back directly in the browser without a separate app.</p>
+      </div>
+      <div class="chip">
+        <h3>Animation</h3>
+        <p>Content that changes over time: CSS transitions, animated GIFs, or scripted motion used to guide attention or show state change.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="http">
+    <header class="panel__head">
+      <span class="tag tag--section">HTTP</span>
+      <h2>HTTP and the HTTP Request</h2>
+    </header>
+    <h3>Definition</h3>
+    <p>HTTP (HyperText Transfer Protocol) is the application-layer protocol that governs how a client and server exchange messages on the web. It defines a shared format for asking for a resource and for replying with one, so that any browser can talk to any server.</p>
+
+    <h3>Request and response</h3>
+    <div class="frames">
+      <div class="frame">
+        <div class="frame__title">Request</div>
+        <ul class="frame__fields">
+          <li><span>Request line</span>method, URL, HTTP version</li>
+          <li><span>Headers</span>metadata — host, accepted content, cookies</li>
+          <li><span>Body</span>optional — data sent with the request</li>
+        </ul>
+      </div>
+      <div class="frame frame--response">
+        <div class="frame__title">Response</div>
+        <ul class="frame__fields">
+          <li><span>Status line</span>HTTP version, status code, reason</li>
+          <li><span>Headers</span>metadata — content type, length, caching</li>
+          <li><span>Body</span>the actual resource — HTML, JSON, an image</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>How the communication works</h3>
+    <p>The client opens a connection to the server and sends a request built from the fields above. The server parses it, carries out whatever work is needed, and sends back a response with a status code summarising the outcome — 200 for success, 404 when the resource isn't found, 500 for a server-side error. By default each exchange is stateless: the server treats every request independently unless something like a cookie is used to link them together.</p>
+  </section>
+
+  <section class="panel" id="dynamic">
+    <header class="panel__head">
+      <span class="tag tag--section">DOM</span>
+      <h2>Dynamic Web Pages</h2>
+    </header>
+    <p>A dynamic web page is one whose content is generated or changed at the time it's requested, rather than being a fixed file that looks the same to everyone. The server (or the browser, via scripts) assembles the page using current data — the time, the logged-in user, the contents of a database — so the same URL can produce a different result on every visit.</p>
+    <div class="split">
+      <div class="split__col">
+        <h3>Characteristics</h3>
+        <ul class="plain-list">
+          <li>Content varies by user, time, or input</li>
+          <li>Reads from and writes to a database</li>
+          <li>Can update in place without a full reload</li>
+          <li>Supports interaction — forms, logins, search</li>
+        </ul>
+      </div>
+      <div class="split__col">
+        <h3>Examples</h3>
+        <ul class="plain-list">
+          <li>A social media feed personalised per user</li>
+          <li>An e-commerce page showing live stock and price</li>
+          <li>A webmail inbox</li>
+          <li>A dashboard that updates as new data arrives</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="appservers">
+    <header class="panel__head">
+      <span class="tag tag--section">APP</span>
+      <h2>Application Servers</h2>
+    </header>
+    <p>An application server is the environment that runs a web application's business logic — the middle layer between a web server, which handles raw HTTP traffic, and a database, which holds the data. Where a web server mainly serves static files and forwards requests, the application server executes the actual code: processing form submissions, applying rules, and generating the dynamic content that gets sent back.</p>
+    <p>Beyond running the application's logic, it typically provides shared services the application would otherwise have to build itself — session and transaction management, connection pooling to the database, load balancing across multiple instances, and security controls such as authentication. Familiar examples include Apache Tomcat, JBoss/WildFly, and Microsoft's IIS application services.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <a href="#top" class="foot__link"><span class="tag">↑</span> Back to top</a>
+  <span class="foot__note">Web Technology — HTML &amp; CSS, internal-link navigation</span>
+</footer>
+
+</body>
+</html>
